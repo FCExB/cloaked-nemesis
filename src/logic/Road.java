@@ -29,7 +29,8 @@ public class Road {
 	public void switchTarget() {
 		if(toEnd) {
 			toEnd = false;
+		} else {
+			toEnd = true; 
 		}
-		toEnd = true;
 	}
 }

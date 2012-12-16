@@ -145,17 +145,12 @@ public class Vec3 extends BufferableData<FloatBuffer> {
 	
 	public static boolean roughEqual(Vec3 vec1, Vec3 vec2, float bounds) {		
 		
-		vec1.
+		boolean x = Math.abs(vec1.x/vec2.x - 1) < bounds;
+		boolean y = Math.abs(vec1.y/vec2.y - 1) < bounds;
+		boolean z = Math.abs(vec1.z/vec2.z - 1) < bounds;
 		
-		boolean teswt = Math.abs(vec1.x/vec2.x - 1) < 5.96;
+		return x && y && z;
 		
-		float fuck = vec1.x - vec2.x;
-		float xMin = vec2.x-bounds;
-	
-		
-		return vec1.x<=vec2.x+bounds && vec1.x>=vec2.x-bounds &&
-		       vec1.y<=vec2.y+bounds && vec1.y>=vec2.y-bounds &&
-		       vec1.z<=vec2.z+bounds && vec1.z>=vec2.z-bounds;
 	}
 	
 	/////////////////////////

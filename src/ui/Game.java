@@ -21,11 +21,13 @@ public class Game extends LWJGLWindow {
 	
 	Car first;
 	Road second;
+	Camera third;
 	
 	@Override
 	protected void init() {
 		second = new Road(new Vec3(-7,-7,-20), new Vec3(7,7,-20));
-		first = new Car(second);
+		first = new Car();
+		third = new Camera();
 		
 		initializeProgram();
 		initializeVertexBuffer(); 
@@ -67,8 +69,9 @@ public class Game extends LWJGLWindow {
 		float deltaT = getLastFrameDuration();
 		
 		first.update(deltaT);
+		third.update(deltaT);
 		
-		final Mat4 transformMatrix = first.constructMatrix();
+		final Mat4 transformMatrix = third.constructMatrix().mul(first.constructMatrix());
 		
 		glUniformMatrix4(modelToCameraMatrixUnif, false, transformMatrix.fillAndFlipBuffer(mat4Buffer));
 		glDrawElements(GL_TRIANGLES, indexData.length, GL_UNSIGNED_SHORT, 0);

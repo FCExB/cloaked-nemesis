@@ -1,22 +1,29 @@
 package logic;
 
 import rosick.jglsdk.glm.*;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
-public class Car extends Vehicle {
+public class Car extends Item {
 	
 	Road currentRoad;
+	boolean onRoad;
 	
 	public Car() {
-		super();
+		super(0.4f,0.1f,0.1f);
+		location.z = -20;
+		onRoad = false;
 	}
 	
 	public Car(Road currentRoad) {
-		super();
+		super(0.4f,0.1f,0.1f);
+		location.z = -20;
 		changeLocation(currentRoad.getStart());
 		this.currentRoad = currentRoad;
+		
+		onRoad = true;
 	}
 	
 	public void update(float deltaT) {	
@@ -32,28 +39,13 @@ public class Car extends Vehicle {
 			changeDirection(Vec3.sub(aim,location));	
 			
 			location.add(getNormalisedDirection().scale(0.001f));
-		} else {
-			if (Vec3.roughEqual(location,currentRoad.getTarget(),0.1f)) {
+		} else if (onRoad) {
+			if (Vec3.roughEqual(location,currentRoad.getTarget(),0.0001f)) {
 				currentRoad.switchTarget();
 			}
 			
 			changeDirection(Vec3.sub(currentRoad.getTarget(),location));	
 			location.add(getNormalisedDirection().scale(0.001f));	
 		}
-		
-		
-		if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			location.x -= deltaT*0.01f;
-		} else if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			location.x += deltaT*0.01f;
-		}
-		
-		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			location.y += deltaT*0.01f;
-		} else if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			location.y -= deltaT*0.01f;
-		}
-		
-		
 	}
 }

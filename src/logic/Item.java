@@ -3,20 +3,23 @@ package logic;
 import rosick.jglsdk.glm.*;
 import ui.*;
 
-public abstract class Vehicle {
+public abstract class Item {
 	final Vec3 location;   //Centre
-    final Vec3 direction;
+	final Vec3 direction;
+	final Vec3 up;
 	final Vec3 dimensions; //x, y, z
 	
-	public Vehicle() {
+	public Item(float x, float y, float z) {
 		
-		location = new Vec3(0f,0f,-20f);
+		location = new Vec3(0f,0f,0f);
 		
 		direction = new Vec3(0f);
 		direction.x = 1f;
 		direction.y = 1f;
 		
-		dimensions = new Vec3(0.45f, 0.15f, 0.15f);
+		up = new Vec3(0,0,1);
+		
+		dimensions = new Vec3(x,y,z);
 	}
 	
 	public Vec3 getNormalisedDirection() {
@@ -66,13 +69,13 @@ public abstract class Vehicle {
 	
 	public abstract void update(float deltaT);
 
-	void changeDirection(Vec3 next) {
+	protected void changeDirection(Vec3 next) {
 		direction.x = next.x;
 		direction.y = next.y;
 		direction.z = next.z;	
 	}
 	
-	void changeLocation(Vec3 next) {
+	protected void changeLocation(Vec3 next) {
 		location.x = next.x;
 		location.y = next.y;
 		location.z = next.z;	
