@@ -2,9 +2,8 @@ package ui;
 
 public class Main {
 
-	public static void main(String[] args) {
-		LWJGLWindow window = new LWJGLWindow();
-		window.start();
+	public static void main(String[] args) {		
+		new Game().start();
 	}
 
 }
